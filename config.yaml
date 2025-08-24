@@ -1,0 +1,27 @@
+model:
+  provider: openai
+  model: gpt-5-nano
+  # provider: ollama
+  # model: gpt-oss:20b
+  # args:
+  #   base_url: "http://localhost:11434"
+
+categories:
+  - "Invokes REST API"
+  - "Consumes messages from Kafka topic"
+  - "Produces messages to Kafka topic"
+  - "Accesses AWS S3"
+  - "Executes SQL query against relational database"
+  - "Executes Amazon Athena query"
+
+prompt_template:
+  - - system
+    - |
+      You are a helpful code assistant. Read and analyze user-provided code.
+      Classify if the code does any of the operations listed as categories of interest.
+      Flag as many categories as it is needed.
+      Output your results as JSON. Example output: {output_example}"
+  - - user
+    - |
+      Categories of interest: {categories}
+      Here's a snippet of source code for analysis: {code_snippet}

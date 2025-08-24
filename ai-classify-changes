@@ -1,0 +1,22 @@
+#!/bin/bash
+
+if [ $# -eq 0 ] 
+then
+    cat << EOT
+Usage:
+  ai-classify-changes <repo-path> <git-diff-args>...
+
+Examples.
+
+Changes in a commit, given by its sha1, to its parent:
+ ai-classify-changes some-path-1 f2cf816^!
+
+Changes between two tags:
+ ai-classify-changes some-path-2 v1.10.0 v1.11.0
+EOT
+    exit -1
+fi
+
+(cd "$1" \
+ && git diff ${@:2} --color=never \
+) | python $(dirname "${BASH_SOURCE[0]}")/ai-classify-changes.py
