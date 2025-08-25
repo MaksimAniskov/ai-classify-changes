@@ -18,5 +18,5 @@ EOT
 fi
 
 (cd "$1" \
- && git diff ${@:2} --color=never \
+ && git diff ${@:2} --diff-filter=drt --color=never \
 ) | python $(dirname "${BASH_SOURCE[0]}")/ai-classify-changes.py

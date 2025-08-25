@@ -41,7 +41,7 @@ def extract_added_lines(diff: list[str]) -> ParsedDiff:
 
     result = ParsedDiff()
     i: int = 0
-    while True:
+    while i < len(diff):
         m = re.match(r"^\+\+\+ b\/(?P<file_name>.+)", diff[i])
         i += 1
         if m:
@@ -81,6 +81,8 @@ for single_file_diff in diff_file_by_file(sys.stdin):
     if single_file_diff == []:
         continue
     parsed_diff = extract_added_lines(single_file_diff)
+    if parsed_diff.added_lines == []:
+        continue
 
     chat = chat_prompt_template.invoke(
         {
