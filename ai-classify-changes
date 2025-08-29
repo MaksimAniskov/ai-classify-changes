@@ -13,10 +13,13 @@ Changes in a commit, given by its sha1, to its parent:
 
 Changes between two tags:
  ai-classify-changes some-path-2 v1.10.0 v1.11.0
+
+Ignore files in directories data and docs:
+ ai-classify-changes some-path-2 v1.10.0 v1.11.0 -- ':(exclude)data' ':(exclude)docs'
 EOT
     exit -1
 fi
 
 (cd "$1" \
- && git diff ${@:2} --diff-filter=drt --color=never \
+ && git diff --diff-filter=drt --color=never ${@:2} \
 ) | python $(dirname "${BASH_SOURCE[0]}")/ai-classify-changes.py
